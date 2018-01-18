@@ -1,0 +1,8 @@
+version: '3'
+services:
+  acn_mqtt:
+    build: .
+    image: sacn_mqtt:latest
+    ports:
+      - "5568:5568/udp"
+    network_mode: "host"
