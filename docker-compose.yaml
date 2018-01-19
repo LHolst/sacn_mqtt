@@ -1,8 +1,21 @@
 version: '3'
 services:
-  acn_mqtt:
+  sacn_mqtt:
     build: .
     image: sacn_mqtt:latest
     ports:
       - "5568:5568/udp"
-    network_mode: "host"
+    network_mode: host
+
+  mqtt_sub:
+    build: .
+    image: sacn_mqtt:latest
+    command: "sub"
+    network_mode: host
+
+  mqtt:
+    image: toke/mosquitto
+    ports:
+        - "1883:1883"
+        - "9001:9001"
+    network_mode: host
