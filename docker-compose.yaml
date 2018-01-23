@@ -5,17 +5,29 @@ services:
     image: sacn_mqtt:latest
     ports:
       - "5568:5568/udp"
-    network_mode: host
+    environment:
+      MCLIGHTING_MQTT_TOPIC: 'ESP8266_01/in'
+      MQTT_HOST: mqtt
+      MQTT_PORT: 1883
+    depends_on:
+      - mqtt
+#    network_mode: host
 
-  mqtt_sub:
-    build: .
-    image: sacn_mqtt:latest
-    command: "sub"
-    network_mode: host
+# mqtt_sub:
+#   build: .
+#   image: sacn_mqtt:latest
+#   command: "sub"
+#   environment:
+#     MCLIGHTING_MQTT_TOPIC: 'ESP8266_01/in'
+#     MQTT_HOST: mqtt
+#     MQTT_PORT: 1883
+#   depends_on:
+#     - mqtt
+#    network_mode: host
 
   mqtt:
     image: toke/mosquitto
     ports:
-        - "1883:1883"
-        - "9001:9001"
-    network_mode: host
+        - "0.0.0.0:1883:1883"
+#        - "9001:9001"
+#    network_mode: host
